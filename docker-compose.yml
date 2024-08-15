@@ -3,10 +3,17 @@ version: '3.8'
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.0
-    container_name: keycloak
+    command: start-dev
+    container_name: keycloak-dev
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: host.docker.internal
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_schema: public
+      KC_DB_URL_DATABASE: keyclock-dev-1
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    # volumes:
     ports:
       - "3001:8080"
-    command: ["start-dev"]
